@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+
+<div class="container-fluid vh-100 d-flex align-items-center justify-content-center overflow-hidden">
+    <div class="row shadow-lg rounded-4 overflow-hidden w-100 bg-white ">
+
+        <!-- Left Side: Image -->
+        <div class="col-md-6 d-none d-md-block">
+            <img src="{% static 'images/sq_img_2.jpg' %}" alt="Signup Image" class="img-fluid h-100" style="object-fit: cover; height: 100%; width: 100%;">
+        </div>
+
+        <!-- Right Side: Form -->
+        <div class="col-md-6 p-5 d-flex flex-column justify-content-center">
+            <h2 class="text-center text-primary fw-bold mb-4">Sign Up</h2>
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} bg-primary text-white fade show" id="alert-message">{{ message }}</div>
+                    <script>
+                        setTimeout(function () {
+                            let alertBox = document.getElementById("alert-message");
+                            if (alertBox) {
+                                setTimeout(() => alertBox.remove(), 500);
+                            }
+                        }, 2000);
+                    </script>
+                {% endfor %}
+            {% endif %}
+
+            <form action="{% url 'health:patient_signup' %}" method="post">
+                {% csrf_token %}
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">First Name</label>
+                        <input type="text" name="first_name" class="form-control" placeholder="Enter your first name" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">Last Name</label>
+                        <input type="text" name="last_name" class="form-control" placeholder="Enter your last name" required>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">Phone Number</label>
+                        <input type="text" name="phone_number" class="form-control" placeholder="Enter phone number" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">Email Address</label>
+                        <input type="email" name="email" class="form-control" placeholder="Enter your email" required>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Date of Birth</label>
+                    <input type="date" name="date_of_birth" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Password</label>
+                    <input type="password" name="password" class="form-control" placeholder="Enter password" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100 fw-bold">Register</button>
+                <div class="text-center mt-3">
+                    <small>Already have an account? <a href="{% url 'health:login' %}" class="text-primary">Login</a></small>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

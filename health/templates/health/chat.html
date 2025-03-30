@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Chat{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        .chat-container {
+            max-width: 600px;
+            margin: auto;
+            margin-top: 50px;
+            border-radius: 10px;
+            background: #f8f9fa;
+            padding: 20px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .message {
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            max-width: 80%;
+        }
+        .message.sent {
+            background-color: #007bff;
+            color: white;
+            align-self: flex-end;
+        }
+        .message.received {
+            background-color: #e9ecef;
+            align-self: flex-start;
+        }
+        .messages-box {
+            max-height: 400px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="chat-container">
+            <h4 class="text-center mb-3">Chat with {{ receiver_name }}</h4>
+            
+            <!-- Messages Display Box -->
+            <div id="messages-box" class="messages-box p-3 border">
+                {% for message in messages %}
+                    <div class="message {% if message.sender == user_id %}sent{% else %}received{% endif %}">
+                        <strong>{{ message.sender_name }}</strong>: {{ message.content }}
+                        <br><small class="text-muted">{{ message.timestamp }}</small>
+                    </div>
+                {% endfor %}
+            </div>
+    
+            <!-- Message Input Form -->
+            <form id="message-form" class="mt-3" method="post">
+                <div class="input-group">
+                    <input type="text" id="message-input" class="form-control" name="content" placeholder="Type a message...">
+                    <button type="submit" class="btn btn-primary">Send</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        const userId = "{{ user_id }}";
+        const userType = "{{ user_type }}";
+        const receiverId = "{{ receiver_id }}";
+        
+        // Function to Fetch Messages (Long Polling)
+        function longPollMessages() {
+            fetch(`/long-poll-messages/${userType}/${userId}/`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.messages.length > 0) {
+                        updateChat(data.messages);
+                    }
+                    longPollMessages();  // Restart polling
+                })
+                .catch(error => console.error("Error:", error));
+        }
+    
+        // Function to Update Chat UI
+        function updateChat(messages) {
+            const messagesBox = document.getElementById("messages-box");
+            messages.forEach(msg => {
+                const messageDiv = document.createElement("div");
+                messageDiv.classList.add("message", msg.sender == userId ? "sent" : "received");
+                messageDiv.innerHTML = `<strong>${msg.sender}</strong>: ${msg.content} <br><small class="text-muted">${msg.timestamp}</small>`;
+                messagesBox.appendChild(messageDiv);
+            });
+            messagesBox.scrollTop = messagesBox.scrollHeight;  // Auto-scroll
+        }
+    
+        // Function to Send a Message
+        document.getElementById("message-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const messageInput = document.getElementById("message-input");
+            const message = messageInput.value.trim();
+            
+            if (message) {
+                fetch("/send-message/", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        sender_id: userId,
+                        receiver_id: receiverId,
+                        sender_type: userType,
+                        content: message
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        updateChat([{
+                            sender: userId,
+                            content: message,
+                            timestamp: new Date().toISOString().slice(0, 19).replace("T", " ")
+                        }]);
+                        messageInput.value = "";
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+            }
+        });
+    
+        // Start polling for new messages
+        longPollMessages();
+    </script>
+</body>
+</html>

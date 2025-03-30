@@ -1,0 +1,108 @@
+{% extends 'includes/base.html' %}
+{% block content %}
+
+<div class="content container-fluid">
+   <div class="page-header">
+      <div class="row">
+         <div class="col-sm-12">
+            {% for i in counselor %}
+            <h3 class="page-title">Welcome Counselor {{ i.first_name }} {{ i.last_name }}!</h3>
+            {% endfor %}
+            <ul class="breadcrumb">
+               <li class="breadcrumb-item active">Dashboard</li>
+            </ul>
+         </div>
+      </div>
+   </div>
+   <div class="row">
+      <div class="col-xl-4 col-sm-6 col-12 d-flex">
+         <div class="card bg-one w-100">
+            <div class="card-body">
+               <div class="db-widgets d-flex justify-content-between align-items-center">
+                  <div class="db-icon">
+                     <i class="fas fa-file"></i>
+                  </div>
+                  <div class="db-info">
+                     <h3>{{allsessions}}</h3>
+                     <h6>All Sessions</h6>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="col-xl-4 col-sm-6 col-12 d-flex">
+         <div class="card bg-two w-100">
+            <div class="card-body">
+               <div class="db-widgets d-flex justify-content-between align-items-center">
+                  <div class="db-icon">
+                     <i class="fas fa-file"></i>
+                  </div>
+                  <div class="db-info">
+                     <h3>{{newsession}}</h3>
+                     <a href="">
+                        <h6>New Sessions</h6>
+                     </a>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="col-xl-4 col-sm-6 col-12 d-flex">
+         <div class="card bg-four w-100">
+            <div class="card-body">
+               <div class="db-widgets d-flex justify-content-between align-items-center">
+                  <div class="db-icon">
+                     <i class="fas fa-file"></i>
+                  </div>
+                  <div class="db-info">
+                     <h3>{{approvedsession}}</h3>
+                     <a href="">
+                        <h6>Approved Sessions</h6>
+                     </a>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="col-xl-4 col-sm-6 col-12 d-flex">
+         <div class="card bg-three w-100">
+            <div class="card-body">
+               <div class="db-widgets d-flex justify-content-between align-items-center">
+                  <div class="db-icon">
+                     <i class="fas fa-file"></i>
+                  </div>
+                  <div class="db-info">
+                     <h3>{{cancelledsessions}}</h3>
+                     <a href="">
+                        <h6>Cancelled Sessions</h6>
+                     </a>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="col-xl-4 col-sm-6 col-12 d-flex">
+         <div class="card bg-four w-100">
+            <div class="card-body">
+               <div class="db-widgets d-flex justify-content-between align-items-center">
+                  <div class="db-icon">
+                     <i class="fas fa-file"></i>
+                  </div>
+                  <div class="db-info">
+                     <h3>{{completedsessions}}</h3>
+                     <a href="">
+                        <h6>Completed Sessions</h6>
+                     </a>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+
+
+</div>
+
+
+
+{% endblock %}

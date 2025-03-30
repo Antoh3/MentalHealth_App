@@ -1,0 +1,291 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+*{
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+
+}
+body{
+    overflow-y: scroll  !important;
+}
+.yt-menu{
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    margin-top: 5px;
+}
+.yt-menu:hover{
+    background: rgba(128, 128, 128, 0.4) !important;
+}
+
+.yt-searchbox{
+    width: 60%;
+    display: flex;
+    /* justify-content: space-between; */
+    /* border: 1px solid #8a8a8a36; */
+    padding: 5px 10px;
+   
+}
+.yt-searchbox input{
+    width: 85%;
+    border-top-left-radius: 999px;
+    border-bottom-left-radius: 999px;
+    padding: 5px 10px;
+    outline: 1px solid rgba(177, 177, 177, 0.252);
+}
+
+.yt-searchbox input:focus{
+    outline: 1px solid rgba(0, 128, 255, 0.61);
+}
+
+.yt-searchbox span{
+    border-top-right-radius: 999px;
+    border-bottom-right-radius: 999px;
+    width: 60px;
+    background-color: rgba(87, 87, 87, 0.489);
+    border: 1px solid rgba(87, 87, 87, 0.489);
+    padding: 6px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.yt-searchbox span:hover{
+    background-color: rgb(127, 127, 127);
+}
+
+
+.yt-searchbox:hover >.yt-search-dropdown{
+    display: block !important;
+}
+
+
+.yt-action .bi{
+    margin: 0px 15px;
+    cursor: pointer;
+    color: #ffffffcb;
+}
+
+.yt-action  .bi:hover{
+    color: red !important;
+}
+
+.yt-search-dropdown{
+    z-index: 100;
+    background: #fff;
+    height: max-content;
+    width: 80%;
+    border-radius: 10px;
+    padding: 5px 0px;
+    position: absolute;
+    top: 40px;
+    left: 20px;
+    display: none;
+}
+
+
+.yt-search-item{
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+
+.yt-search-item:hover{
+    background: rgba(128, 128, 128, 0.302);
+}
+
+
+.yt-search-item a{
+    text-decoration: none;
+}
+
+
+.yt-sidebar{
+    height: 100vh;
+    width: 15%;
+    /* background: red; */
+    /* overflow-y: scroll; */
+    padding: 10px;
+}
+
+.yt-sidebar nav{
+    display: flex;
+    align-items: center;
+    padding: 10px 10px;
+    color: #ffffffc0;
+    cursor: pointer;
+    border-radius: 10px;
+}
+.yt-sidebar nav:hover{
+    color: #fff;
+    background: #ffffff14;
+}
+
+
+.yt-sidebar i{
+    width: 30px;
+    margin-right: 14px;
+}
+
+
+/* .yt-video{
+    background: #fff;
+} */
+
+
+.yt-video-container{
+    /* overflow-y: scroll; */
+    height: calc(100vh - 100px);
+}
+
+
+.yt-video{
+    height: 100vh;
+    margin-left: 230px; /* Adjust based on sidebar width */
+    padding-top: 60px;
+    width: 85%;
+    /* background: rgb(68, 255, 0); */
+    /* overflow-y: scroll; */
+    padding: 20px;
+}
+
+.card{
+    cursor: pointer;
+}
+
+
+.card video{
+    display: none;
+}
+
+.card:hover{
+    border-radius: 0px !important;
+}
+
+/* displaying video */
+.card:hover > video{
+    display: block !important;
+}
+
+
+/* hide thumbnail */
+.card:hover > .img{
+    display: none !important;
+}
+
+a{
+    text-decoration: none;
+    color: white;
+}
+
+.view-more-btn {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    padding: 3px 6px;
+    font-size: 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.video-card {
+    position: relative;
+}
+
+.video-title {
+    max-height: 50px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.yt-sidebar {
+    position: fixed;
+    top: 56px; /* Adjust based on navbar height */
+    left: 0;
+    width: 250px; /* Sidebar default width */
+    height: calc(100vh - 56px); /* Full height minus navbar */
+    background-color: #181818;
+    overflow-y: hidden !important;
+    overflow-x: hidden !important;
+    transition: width 0.3s ease-in-out;
+}
+
+
+.yt-sidebar.collapsed {
+    width: 60px;
+}
+
+.yt-sidebar nav {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    color: white;
+}
+
+.yt-sidebar.collapsed nav span {
+    display: none;
+}
+
+/* Fix navbar at the top */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: #0f0f0f;
+}
+
+.yt-video {
+    margin-left: 260px; /* Space for sidebar */
+    transition: margin-left 0.3s ease-in-out;
+    width: calc(100% - 260px);
+}
+
+/* Collapsed sidebar */
+.sidebar-collapsed {
+    width: 55px;
+}
+
+/* Expand video section when sidebar collapses */
+.sidebar-collapsed + .yt-video {
+    margin-left: 60px;
+    width: calc(100% - 60px);
+}
+
+
+body {
+    padding-top: 56px;
+}
+.yt-sidebar {
+    background-color: #343a40;
+    color: white;
+    min-height: 100vh;
+    transition: width 0.3s;
+}
+.yt-sidebar nav {
+    padding: 15px;
+    display: flex;
+    align-items: center;
+}
+.yt-sidebar nav i {
+    font-size: 1.5rem;
+    margin-right: 10px;
+}
+.yt-sidebar span {
+    display: inline;
+}
+@media (max-width: 768px) {
+    .yt-sidebar {
+        width: 60px;
+    }
+    .yt-sidebar span {
+        display: none;
+    }
+}
+.tab{
+    cursor: pointer;
+}

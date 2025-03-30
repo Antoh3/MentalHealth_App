@@ -1,0 +1,58 @@
+<div id="overlayer"></div>
+<div class="loader">
+  <div class="spinner-border text-primary" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
+
+
+<div class="site-wrap">
+  <!-- NAVBAR -->
+  <header class="site-navbar mt-3">
+    <div class="container-fluid">
+      <div class="row align-items-center">
+        <div class="site-logo col-6 text-decoration-none"><a href="">MindConnect Kenya</a></div>
+        <nav class="mx-auto site-navigation">
+          <!-- <ul class="site-menu js-clone-nav d-none d-xl-block ml-3 pl-3">
+            <li><a href="#" class="nav-link">Home</a></li>
+            <li><a href="#">About</a></li>
+             <li><a href="#">Contact</a></li> -->
+          <!-- </ul> -->
+        </nav>
+        <div class="right-cta-menu text-right d-flex aligin-items-right col-6">
+          <div class="ml-auto">
+            <div class="site-navigation fix">
+              <ul class="site-menu js-clone-nav d-none d-xl-block ml-0 pl-0">
+
+                <li class="pr-3 has-children">
+                  <a>Dashboard</a>
+                  <ul class="dropdown">
+                    <li><a href="#">Dashboard</a></li>
+                    <li><a href="#">Logout</a></li>
+                  </ul>
+                </li>
+
+                <li class="pr-3 has-children">
+                  <a>Profile</a>
+                  <ul class="dropdown">
+                    <li><a href="#">Edit Settings</a></li>
+                  </ul>
+                </li>
+
+                <li class="pr-3 has-children">
+                  <a>Register</a>
+                  <ul class="dropdown">
+                    <li><a href="{% url 'health:counselor_signup' %}">Counselor</a></li>
+                    <li><a href="{% url 'health:patient_signup' %}">Patient</a></li>
+                  </ul>
+                </li>
+
+                <a href="#" class="js-clone-nav btn btn-primary border-width-2 d-none d-lg-inline-block ov-fix"><span
+                    class="mr-2 icon-lock_outline"></span>Log In</a>
+              </ul>
+            </div>
+          </div>
+        </div>
+  </header>
+</div>
+

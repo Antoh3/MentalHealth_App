@@ -1,0 +1,316 @@
+<!-- {% extends 'includes/posthead.html' %} -->
+
+{% load static %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>community platform</title>
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+    <link rel="stylesheet" href="{% static '/css/comm.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+
+<body style="background-color: #a7d1cf;">
+    <!-- -----------------------navigation bar------------------- -->
+    <nav class="navbar-light ">
+        <div class="container ">
+            <h2 class="logo">
+                MHGCP
+            </h2>
+            <!-- <div class="search-bar">
+                <i class="uil uil-search"></i>
+                <input type="search" placeholder="search for creation">
+            </div> -->
+            <div class="create">
+                <label class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">create</label>
+                <div class="profile-pic">
+                    <img src="{% static 'comm/IMG-20250226-WA0004.jpg' %}" alt="">
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- -------------------------------end navigation----------------------- -->
+
+    <!-- ---------------------main section---------------------------- -->
+    <main>
+
+        <div class="container">
+            <!-- ----left section -->
+            <div class="left">
+                {% for i in user %}
+                <a href="" class="profile" style="text-decoration: none;">
+                    <div class="profile-pic">
+                        <img src="{% static 'comm/IMG-20250226-WA0004.jpg' %}">
+                    </div>
+                    <div class="handel">
+                        <h4>{{ i.first_name }}</h4>
+                        <p class="text-muted">
+                            @ {{ i.last_name }}
+                        </p>
+                    </div>
+                </a>
+
+                <!-- ----------sidebar -->
+                <div class="sidebar">
+                    <a class="menu-item active" href="{% url 'health:patient_home' %}">
+                        <span><i class="uil uil-home"></i></span>
+                        <h3>home</h3>
+                    </a>
+                    <a class="menu-item active" href="{% url 'health:videos' %}">
+                        <span><i class="uil uil-home"></i></span>
+                        <h3>Watch Videos</h3>
+                    </a>
+                    <a class="menu-item active" href="{% url 'health:books' %}">
+                        <span><i class="uil uil-home"></i></span>
+                        <h3>Read Articles</h3>
+                    </a>
+                    <div class=" mt-5" align="center" style="padding-top: 5px">
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+                            Create Post
+                        </button>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <!-- Post modal  -->
+            <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Create Post</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table table-bordered table-hover data-tables">
+                                <form method="POST" action="" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <tr>
+                                        <th>Write post :</th>
+                                        <td>
+                                            <textarea name="content" placeholder="write post..." rows="10" cols="100"
+                                                class="form-control wd-850" required="true"></textarea>
+                                        </td>
+
+                                    </tr>
+
+                                    <tr>
+                                        <th>Title :</th>
+                                        <td>
+                                            <input type="text" name="title" class="form-control wd-450"
+                                                placeholder="Title..." required="true">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            Profile Picture:
+                                        </th>
+                                        <td>
+                                            <input type="file" name="profile_picture" accept="image/*" required>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            Icon Picture:
+                                        </th>
+                                        <td>
+                                            <input type="file" name="profile_icon" accept="image/*" required>
+                                        </td>
+                                    </tr>
+                                    <!-- <label for="profile_picture"></label> -->
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" name="submit" class="btn btn-primary">Create</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ------middle section -->
+            <div class="middle">
+                <!-- <div class="feeds">
+                    <div class="feed">
+                        <div class="header">
+                            <div class="user">
+                                <div class="profile-pic">
+                                    <img src="{% static 'comm/9.jpg' %}">
+                                </div>
+                                <div class="ingo">
+                                    <h3>alec max</h3>
+                                    <small>asia, 32 minutes ago</small>
+                                </div>
+                            </div>
+                            <span class="edit">
+                                <i class="uil uil-ellipsis-h"></i>
+                            </span>
+                        </div>
+                        <div class="photo">
+                            <img src="{% static 'comm/10.jpg' %}">
+                            <div class="active-button">
+                                <div class="interaction-button">
+                                    <span><i class="uil uil-heart"></i></span>
+                                    <span><i class="uil uil-comment-dots"></i></span>
+                                </div>
+
+                                <div class="bookmark">
+                                    <span><i class="uil uil-bookmark-full"></i></span>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="liked-by">
+                            <span><img src="{% static 'comm/11.jpg' %}"></span>
+                            <span><img src="{% static 'comm/12.jpg' %}"></span>
+                            <span><img src="{% static 'comm/13.jpg' %}"></span>
+                            <span><img src="{% static 'comm/14.jpg' %}"></span>
+                            <span><img src="{% static 'comm/15.jpg' %}"></span>
+                            <span><img src="{% static 'comm/16.jpg' %}"></span>
+                            <span><img src="{% static 'comm/17.jpg' %}"></span>
+                            <span><img src="{% static 'comm/18.jpg' %}"></span>
+                            <span><img src="{% static 'comm/19.jpg' %}"></span>
+                            <span><img src="{% static 'comm/20.jpg' %}"></span>
+                            <p>liked by <b>alec max</b> and <b>2,454 others</b></p>
+                        </div>
+                        <div class="caption">
+                            <p><b>alec max</b>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum omnis
+                                facilis nesciunt maiores? Ea eum, repudiandae officia inventore error </p>
+                        </div>
+                    </div> -->
+                <!-- </div> -->
+                {% for p in posts %}
+                <div class="feeds">
+                    <div class="feed">
+                        <div class="header">
+                            <div class="user">
+                                {% if p.profile_icon %}
+                                <div class="profile-pic">
+                                    <img src="{{ p.profile_icon.url }}" alt="Profile Icon">
+                                </div>
+                                {% else %}
+                                <div class="profile-pic">
+                                    <img src="{% static 'comm/21.jpg' %}">
+                                </div>
+                                {% endif %}
+                                <div class="ingo">
+                                    <h3>{{ p.author.first_name }}</h3>
+                                    <small>asia, 32 minutes ago</small>
+                                </div>
+                            </div>
+                            <span class="edit">
+                                <i class="uil uil-ellipsis-h"></i>
+                            </span>
+                        </div>
+                        <div class="photo">
+                            {% if p.profile_picture %}
+                            <!-- <img src="{% static 'comm/22.jpg' %}"> -->
+                            <img src="{{ p.profile_picture.url }}" alt="Post Image" class="img-fluid">
+                            <div class="active-button">
+                                <div class="interaction-button">
+                                    <span><i class="uil uil-heart"></i></span>
+                                    <span><i class="uil uil-comment-dots"></i></span>
+                                </div>
+                                <div class="bookmark">
+                                    <span><i class="uil uil-bookmark-full"></i></span>
+                                </div>
+                            </div>
+                            {% else %}
+                            <img src="{% static 'comm/22.jpg' %}">
+                            <div class="active-button">
+                                <div class="interaction-button">
+                                    <span><i class="uil uil-heart"></i></span>
+                                    <span><i class="uil uil-comment-dots"></i></span>
+                                </div>
+                                <div class="bookmark">
+                                    <span><i class="uil uil-bookmark-full"></i></span>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="liked-by">
+                            <span><img src="{% static 'comm/23.jpg' %}"></span>
+                            <span><img src="{% static 'comm/24.jpg' %}"></span>
+                            <span><img src="{% static 'comm/25.jpg' %}"></span>
+                            <span><img src="{% static 'comm/26.jpg' %}"></span>
+                            <span><img src="{% static 'comm/27.jpg' %}"></span>
+                            <span><img src="{% static 'comm/28.jpg' %}"></span>
+                            <span><img src="{% static 'comm/29.jpg' %}"></span>
+                            <span><img src="{% static 'comm/30.jpg' %}"></span>
+                            <span><img src="{% static 'comm/31.jpg' %}"></span>
+                            <p>liked by <b>alec max</b> and <b>2,454 others</b></p>
+                        </div>
+                        <div class="caption">
+                            <p><b>{{ p.author.last_name }}</b>
+                                {{ p.content }}</p>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                <!-- <div class="feeds">
+                    <div class="feed">
+                        <div class="header">
+                            <div class="user">
+                                <div class="profile-pic">
+                                    <img src="{% static 'comm/35.jpg' %}">
+                                </div>
+                                <div class="ingo">
+                                    <h3>alec max</h3>
+                                    <small>asia, 32 minutes ago</small>
+                                </div>
+                            </div>
+                            <span class="edit">
+                                <i class="uil uil-ellipsis-h"></i>
+                            </span>
+                        </div>
+                        <div class="photo">
+                            <img src="{% static 'comm/36.jpg' %}">
+                            <div class="active-button">
+                                <div class="interaction-button">
+                                    <span><i class="uil uil-heart"></i></span>
+                                    <span><i class="uil uil-comment-dots"></i></span>
+                                </div>
+                                <div class="bookmark">
+                                    <span><i class="uil uil-bookmark-full"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="liked-by">
+                            <span><img src="{% static 'comm/37.jpg' %}"></span>
+                            <span><img src="{% static 'comm/38.jpg' %}"></span>
+                            <span><img src="{% static 'comm/39.jpg' %}"></span>
+                            <span><img src="{% static 'comm/40.jpg' %}"></span>
+                            <span><img src="{% static 'comm/41.jpg' %}"></span>
+                            <span><img src="{% static 'comm/42.jpg' %}"></span>
+                            <span><img src="{% static 'comm/43.jpg' %}"></span>
+                            <span><img src="{% static 'comm/44.jpg' %}"></span>
+                            <span><img src="{% static 'comm/45.jpg' %}"></span>
+                            <span><img src="{% static 'comm/46.jpg' %}"></span>
+                            <p>liked by <b>alec max</b> and <b>2,454 others</b></p>
+                        </div>
+                        <div class="caption">
+                            <p><b>alec max</b>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum omnis
+                                facilis nesciunt maiores? Ea eum, repudiandae officia inventore error </p>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+            <!-- ----------------right section------------  -->
+        </div>
+    </main>
+    <script src="comm.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</body>
+
+</html>
+
+{% endblock %}

@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html>
+      {% include 'head.html' %}
+      <body id="top">
+            {% block content %}{% endblock %}
+            
+            {% include 'scripts.html' %} 
+            {% block extra_scripts %} {% endblock %}
+      </body>
+</html>

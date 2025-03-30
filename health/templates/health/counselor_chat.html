@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h2>Chat</h2>
+    <div id="chat-box" style="border: 1px solid #ccc; height: 300px; overflow-y: scroll; padding: 10px;"></div>
+    <input type="text" id="message" placeholder="Type a message...">
+    <button onclick="sendMessage()">Send</button>
+
+    <script>
+        const senderType = "counselor";  // Change to "counselor" if a counselor is chatting
+        const senderId = 2;  // Change dynamically for logged-in user
+        const receiverId = 1;  // Change dynamically for chat recipient
+
+        function fetchMessages() {
+            $.ajax({
+                url: `/long-poll-messages/${senderType}/${senderId}/${receiverId}/`,
+                type: "GET",
+                success: function (data) {
+                    $("#chat-box").html("");
+                    data.messages.forEach(msg => {
+                        $("#chat-box").append(`<p><b>${msg.sender}:</b> ${msg.content}</p>`);
+                    });
+                    // Keep polling for new messages
+                    fetchMessages();
+                },
+                error: function () {
+                    console.error("Error fetching messages");
+                    setTimeout(fetchMessages, 2000);
+                }
+            });
+        }
+
+        function sendMessage() {
+            const message = $("#message").val();
+            $.ajax({
+                url: "/send-message/",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({ sender_type: senderType, sender_id: senderId, receiver_id: receiverId, content: message }),
+                success: function () {
+                    $("#message").val("");
+                }
+            });
+        }
+
+        // Start polling when page loads
+        fetchMessages();
+    </script>
+</body>
+</html>

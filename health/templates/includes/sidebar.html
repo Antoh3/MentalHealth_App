@@ -1,0 +1,46 @@
+{% load static %}
+
+<div class="sidebar" id="sidebar">
+   <div class="sidebar-inner slimscroll">
+      <div id="sidebar-menu" class="sidebar-menu">
+         <ul>
+            <li class="menu-title">
+               <span>Main Menu</span>
+            </li>
+
+            <li>
+               <a href="{% url 'health:counselor_home' %}"><i class="fa fa-file"></i> <span>Dashboard</span></a>
+            </li>
+            <li class="submenu">
+               <a href="#"><i class="fas fa-chalkboard-teacher"></i> <span> Sessions</span> <span
+                     class="menu-arrow"></span></a>
+               <ul>
+                  <li><a href="{% url 'health:patient_new_session' %}">New Session</a></li>
+                  <li><a href="{% url 'health:approved_sessions' %}">Approved Sessions</a></li>
+                  <li><a href="{% url 'health:cancelled_sessions' %}">Cancelled Session</a></li>
+                  <li><a href="{% url 'health:completed_sessions' %}">Completed Session</a></li>
+                  <li><a href="{% url 'health:all_sessions' %}">All Sessions</a></li>
+
+               </ul>
+            </li>
+            <li>
+               <a href="{% url 'health:patient_list' %}"><i class="fas fa-users"></i> <span>Patient List</span></a>
+            </li>
+            <li>
+               <a href="{% url 'health:completed_sessions' %}"><i class="fas fa-file"></i> <span>
+                     Completed Sessions</span></a>
+            </li>
+            <!-- <li>
+               <a href=""><i class="fa fa-file"></i> <span> Session
+                     Report</span></a>
+            </li> -->
+            <li>
+               <a href="{% url 'health:search_sessions' %}"><i class="fas fa-search"></i> <span>Search
+                     Sessions</span></a>
+            </li>
+
+         </ul>
+      </div>
+   </div>
+</div>
+

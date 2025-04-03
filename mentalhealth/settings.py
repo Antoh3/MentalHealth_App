@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'health',
     'channels',
+    'chat',
+    'rest_framework',
 ]
 
 

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ivy Streams</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/chat.css' %}">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 50vh;
+            padding-top: 100px;
+        }
+
+        .container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 70%;
+            max-width: 800px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .button-group {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .button-group button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .button-group button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        .video-container {
+            display: none; /* Initially hide video container */
+            margin-top: 20px;
+        }
+
+        .video-container.active {
+            display: block;
+            background-color: #333;
+            height: 400px;
+            border-radius: 8px;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .container {
+                width: 90%;
+                padding: 15px;
+            }
+
+            .button-group button {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Choose Your Communication Method</h2>
+        <div class="button-group">
+            <button id="chat-btn">Chat with Counselor</button>
+            <button id="video-btn">Start Video Call</button>
+        </div>
+
+        <!-- Video Stream container -->
+        <div id="video-container" class="video-container">
+            <div id="video-streams">Video stream will appear here</div>
+            <div id="stream-controls" style="display: none;">
+                <button id="leave-btn">Leave Stream</button>
+                <button id="mic-btn">Mic On</button>
+                <button id="camera-btn">Camera On</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Pass the counselor's phone number from Django
+        const counselorWhatsAppNumber = "{{ counselor_phone_number }}"; 
+
+        // Chat button functionality: open WhatsApp
+        document.getElementById('chat-btn').addEventListener('click', function() {
+            const message = "Hello, I am the patient who booked an appointment. I would like to chat.";
+            const url = `https://wa.me/${counselorWhatsAppNumber}?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+        });
+
+        // Video call button functionality: Show video stream
+        document.getElementById('video-btn').addEventListener('click', function() {
+            joinStream();  
+            
+            document.getElementById('video-container').classList.add('active');
+            document.getElementById('chat-btn').style.display = 'none';  // Hide chat button
+            document.getElementById('video-btn').style.display = 'none';  // Hide video button
+
+            // Initialize the video call stream
+            // Call Agora's joinStream function to start the call
+        });
+
+        // Optionally, you can add more functionality to handle video call setup
+    </script>
+
+    <script src="{% static 'js/AgoraRTC_N-4.23.1.js' %}"></script>
+    <script src="{% static 'js/chat1.js' %}"></script>
+</body>
+</html>

@@ -607,3 +607,15 @@ def chat_view(request, sender_type, sender_id, receiver_id):
 
 def test(request):
     return render(request,'auth/login.html')
+
+
+def videoCall(request,session_id):
+    session = Session.objects.get(id=session_id)
+
+    counselor_phone = session.counselor_id.phone_number
+
+    context = {
+        "session":session,
+        "counselor_phone_number":counselor_phone
+    }
+    return render(request,'health/videocall.html',context)

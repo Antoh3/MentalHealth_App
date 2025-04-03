@@ -15,6 +15,8 @@ urlpatterns = [
     path('counselor_login/',views.counselor_login_view, name="counselor_login"),
 
     path("chat_with_ai/", views.chatbot_redirect, name="chat_with_ai"),
+    path('contact_counselor/<int:session_id>',views.videoCall, name="contact_counselor"),
+
 
 
 

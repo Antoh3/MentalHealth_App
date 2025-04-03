@@ -83,8 +83,8 @@
                                         <th>Patient Name</th>
                                         <th>Date of Appointment</th>
                                         <th>Time of Appointment</th>
-                                        <!-- <th>Counselor Name</th> -->
                                         <th>Status</th>
+                                        <th>Chat / Video</th>
                                         <th class="text-right">Action</th>
                                     </tr>
                                 </thead>
@@ -101,6 +101,13 @@
                                         <td>Not Updated Yet</td>
                                         {% else %}
                                         <td>{{ i.status}}</td>{% endif %}
+                                        <td class="text-right">
+                                            <div class="actions">
+                                                <a href="{% url 'health:contact_counselor' i.id %}">
+                                                    <i class="btn btn-primary btn-block">Chat/Video</i>
+                                                </a>
+                                            </div>
+                                        </td>
                                         <td class="text-right">
                                             <div class="actions">
                                                 <a href="{% url 'health:patient_session_details' i.id %}">
@@ -121,9 +128,6 @@
 
                                 {% endif %}
                             </table>
-
-
-
                         </div>
                     </div>
                 </div>

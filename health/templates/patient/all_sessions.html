@@ -53,15 +53,14 @@
                                     <th>Patient Name</th>
                                     <th>Date of Session</th>
                                     <th>Time of Session</th>
-                                    <!-- <th>Creation Date</th> -->
                                     <th>Status</th>
+                                    <th>Chat / Video</th>
                                     <th class="text-right">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {% for i in sessions %}
                                 <tr>
-
                                     <td>{{ i.session_number }}</td>
                                     <td>{{ i.fullname }}</td>
                                     <td>{{ i.session_date }}</td>
@@ -71,6 +70,13 @@
                                     <td>Not Updated Yet</td>
                                     {% else %}
                                     <td>{{ i.status}}</td>{% endif %}
+                                    <td class="text-right">
+                                        <div class="actions">
+                                            <a href="{% url 'health:contact_counselor' i.id %}">
+                                                <i class="btn btn-primary btn-block">Chat/Video</i>
+                                            </a>
+                                        </div>
+                                    </td>
                                     <td class="text-right">
                                         <div class="actions">
                                             <a href="{% url 'health:patient_session_details' i.id %}">
